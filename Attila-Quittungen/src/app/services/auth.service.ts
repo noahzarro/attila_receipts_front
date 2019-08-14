@@ -10,21 +10,21 @@ import { User } from '../models/user';
 })
 export class AuthService {
   private isLoggedIn = false;
-  token:any;
+  token: any;
 
   constructor(
     private http: HttpClient,
     private storage: NativeStorage,
-    private enc: EnvService
+    private env: EnvService
   ) { }
-  
-  isLoggedIn() {
-    return isLoggedIn;
+
+  getIsLoggedIn() {
+    return this.isLoggedIn;
   }
 
   // returns token
-  login(username: String, password: String) {
-    return this.http.post(this.env.API_URL + 'auth/login', {email: email, password: password}
+  login(username: string, password: string) {
+    return this.http.post(this.env.API_URL + 'auth/login', {username, password}
     ).pipe(
       tap(token => {
         this.storage.setItem('token', token)
@@ -39,28 +39,28 @@ export class AuthService {
         this.isLoggedIn = true;
         return token;
       })
-    )
+    );
   }
 
-  register(username: String, vulgo: String, password: String) {
+  register(username: string, vulgo: string, password: string) {
     return this.http.post(this.env.API_URL + 'auth/register',
-      {username: username, vulgo: vulgo, password: password}
-    )
+      {username, vulgo, password}
+    );
   }
 
   getToken() {
     return this.storage.getItem('token').then(
       data => {
         this.token = data;
-        if(this.token != null) {
-          this.isLoggedIn=true;
+        if (this.token != null) {
+          this.isLoggedIn = true;
         } else {
-          this.isLoggedIn=false;
+          this.isLoggedIn = false;
         }
       },
       error => {
         this.token = null;
-        this.isLoggedIn=false;
+        this.isLoggedIn = false;
       }
     );
   }

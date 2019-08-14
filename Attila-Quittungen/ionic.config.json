@@ -1,5 +1,7 @@
 {
   "name": "Attila-Quittungen",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
