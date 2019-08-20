@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
       error => {
         console.log(error);
         // tell user to use valid credentials
-        this.alertService.presentToast('Passwort oder Benutzername falsch, du Spasst');
+        this.alertService.presentOkPopup('Benutzername oder Passwort falsch, du Spasst', 'Fehlgeschlagen');
       },
       () => {
         this.navCtrl.navigateRoot('/dashboard');
