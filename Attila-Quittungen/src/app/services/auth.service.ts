@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+//import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage';
 import { EnvService } from './env.service';
 import { User } from '../models/user';
 
@@ -14,7 +15,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private storage: NativeStorage,
+    //private storage: NativeStorage,
+    private storage: Storage,
     private env: EnvService
   ) { }
 
@@ -24,10 +26,23 @@ export class AuthService {
 
   // returns token
   login(username: string, password: string) {
-    return this.http.post(this.env.API_URL + 'auth/login', {username, password}
+    console.log('trying to log in');
+    console.log(this.env.API_URL + 'tokens');
+    // generate header
+    const basic = 'Basic ' + btoa(username + ':' + password);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': basic
+    });
+    console.log(headers);
+    const options = { headers: headers };
+    console.log(options);
+    console.log('now requesting');
+    return this.http.post(this.env.API_URL + 'tokens', null, options
     ).pipe(
       tap(token => {
-        this.storage.setItem('token', token)
+        console.log(token);
+        this.storage.set('token', token)
         .then(
           () => {
             console.log('Token Stored');
@@ -49,7 +64,8 @@ export class AuthService {
   }
 
   getToken() {
-    return this.storage.getItem('token').then(
+    //return this.storage.getItem('token').then
+    return this.storage.get('token').then(
       data => {
         this.token = data;
         if (this.token != null) {
