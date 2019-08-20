@@ -4,32 +4,44 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Landing
+      Attila Finance
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>
-        Bitte einloggen
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-card-subtitle>
-        Login
-      </ion-card-subtitle>
-      <ion-button [routerLink]="['../login']">
-        Login
-      </ion-button>
-
-      <ion-card-subtitle>
-        Register
-      </ion-card-subtitle>
-      <ion-button [routerLink]="['../register']">
-        Register
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col offset-md=4 size-md="4">
+        <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                Willkommen
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-card-subtitle>
+                Bitte logge dich ein um die App nützen zu können, du Spasst
+              </ion-card-subtitle>
+              <br>
+              <div class="ion-margin-top"></div>
+              <ion-card-subtitle class="ion-margin-top">
+                Login
+              </ion-card-subtitle>
+              <ion-button [routerLink]="['../login']" expand="block">
+                Login
+              </ion-button>
+        
+              <ion-card-subtitle class="ion-margin-top">
+                Registrieren
+              </ion-card-subtitle>
+              <ion-button [routerLink]="['../register']" expand="block">
+                Registrieren
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
 </ion-content>
