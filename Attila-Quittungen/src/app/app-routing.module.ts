@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: './pages/auth/login/login.module#LoginPageModule' },
   { path: 'register', loadChildren: './pages/auth/register/register.module#RegisterPageModule' },
   { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule' , canActivate: [AuthGuard]},
-  { path: 'add', loadChildren: './pages/add/add.module#AddPageModule' },
+  { path: 'add', loadChildren: './pages/add/add.module#AddPageModule'},
 ];
 
 @NgModule({

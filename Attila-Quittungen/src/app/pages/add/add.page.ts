@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture/ngx';
 
 @Component({
   selector: 'app-add',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private mediaCapture: MediaCapture
+  ) { }
 
   ngOnInit() {
+  }
+
+  addPhoto() {
+    this.mediaCapture.captureImage().then(res => {
+      console.log(res);
+      console.log('captured');
+    });
   }
 
 }
