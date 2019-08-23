@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture/ngx';
+import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { format } from 'path';
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-add',
@@ -8,18 +12,40 @@ import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ion
 })
 export class AddPage implements OnInit {
 
+  photo: SafeResourceUrl;
+  photoTaken = false;
+  reasons = ['Büro', 'Zvieri', 'Material'];
+  events = ['Sola', 'Ufla', ]
+
   constructor(
-    private mediaCapture: MediaCapture
-  ) { }
+    private sanitizer: DomSanitizer,
+   ) { }
 
   ngOnInit() {
+
   }
 
-  addPhoto() {
-    this.mediaCapture.captureImage().then(res => {
-      console.log(res);
-      console.log('captured');
+  async addPhoto() {
+    console.log('Taking photo');
+    const image = await Plugins.Camera.getPhoto({
+      quality: 100,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Camera
     });
+
+    //this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
+    this.photo = image.dataUrl;
+
+    this.photoTaken = true;
+  }
+
+  retake() {
+    this.photoTaken = false;
+  }
+
+  send(form: NgForm) {
+    console.log(form.value.amount);
   }
 
 }

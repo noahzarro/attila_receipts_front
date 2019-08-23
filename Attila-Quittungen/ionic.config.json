@@ -1,7 +1,8 @@
 {
   "name": "Attila-Quittungen",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }
